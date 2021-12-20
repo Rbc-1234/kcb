@@ -1,0 +1,162 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+    <!-- Dark table -->
+    
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+            {% if pr.errors %}
+            {% for field in pr %}
+                {% for pr in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ pr|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+          {% endif %}
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                  <td>
+                    </td>
+                    <tr>
+                        <th>
+                            <a href ="{% url 'master-add' %}">Add-Record</a>
+                        </th>
+                       {{jr}}
+                    </tr>
+                    <form method="POST" enctype="multipart/form-data" name="MasterForm" onsubmit="return validateForm()">
+                      {% csrf_token %}
+                    <tr>
+                    <td class="budget">
+                        <label>Name</label></br>
+                        <input type="text" name="name" id="name" value="{% if xr.name %}{{xr.name}}{% endif %}"/>
+                    </td>
+                      </tr>
+                      <tr>
+                        <td class="budget">
+                            <label>Discription</label></br>
+                            <textarea  name="discription" id="discription" rows="4" cols="50" >{% if xr.discription %}{{xr.discription}}{% endif %}</textarea>
+                        </td>
+                          </tr>
+                          
+                      <tr>
+                        <td class="budget">
+                            <label>Image</label></br>
+                            {% if xr.document %}
+                           <img src="{% static xr.document.url %}" height="20" width="20"></img></br>
+                           {% endif %}
+                            <input type="file" name="document" multiple >
+                        </td>
+                          </tr>
+                          <tr>
+                            <td class="budget">
+                                <label>Size</label></br>
+                                <select  name="brandsize" id="brandsize" value="{% if xr.brandsize %}{{xr.brandsize}}{% endif %}">
+                                  <option value="">Select Size</option>   
+                                  {% for i in rr %}
+                                  <option value="{{i.id}}" {% if xr.brandsize.id == i.id %} selected="selected"{% endif %}>{{i.brandsize}}</option>
+                                  {% endfor %}
+                                    </select>
+                            </td>
+                              </tr>
+                              <tr>
+                                <td class="budget">
+                                    <label>Brand Name</label></br>
+                                    
+                                    <select  name="brandname" id="brandname">
+                                      <option value="">Select Brandname</option>    
+                                      {% for i in cr %}
+                                      <option value="{{i.id}}" {% if xr.brandname.id == i.id %} selected="selected"{% endif %}>{{i.brandname}}</option>
+                                      {% endfor %}
+                                    </select>
+                                </td>
+                                  </tr>
+                                  <tr>
+                                    <td class="budget">
+                                        <label>Category</label></br>
+                                        
+                                        <select  name="brandcategory"  id="brandcategory">
+                                         
+                                          <option value="">Select Category</option>   
+
+                                          <!-- {% for masterid, brandcategory in xr.SOURCE %}
+                                          <option value="{{ masterid }}">{{ brandcategory }}</option>
+                                            {% endfor %} -->
+                                            {% for i in ir %}
+                                            <option value="{{i.id}}" {% if xr.brandcategory.id == i.id %} selected="selected"{% endif %}>{{i.brandcategory}}</option>
+                                            {% endfor %}
+                                            
+                                          </select>
+                                        
+                                    </td>
+                                      </tr>
+                                      
+                                          <tr>
+                                            <td class="budget">
+                                                <label>Price</label></br>
+                                                <input type="number" name="price" id="price" value="{% if xr.price %}{{xr.price}}{% endif %}">
+                                            </td>
+                                              </tr>
+                                        <tr>
+                                            <td class="budget">
+                                                <label>STATUS</label></br>
+                                                <input type="radio" value="active" name="masterstatus" {% if xr.masterstatus != 'inactive' %} checked {% endif %} />Active
+                                                <input type="radio" value="inactive" name="masterstatus" {% if xr.masterstatus != 'active' %} checked {% endif %} />In Active
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="budget">
+                                                    <input type="submit" name="submit" value="submit">
+                                                </td>
+                                                 </tr> 
+                   </form> 
+                  </tr>
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+<script>
+  function validateForm() {
+    let x = document.forms["MasterForm"]["name"].value;
+    let y= document.forms["MasterForm"]["discription"].value;
+    let z= document.forms["MasterForm"]["price"].value;
+    if (x == "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    if (y == "") {
+      alert("fill discriptions");
+      return false;
+    }
+    if (z == "") {
+      alert("fill price");
+      return false;
+    }
+  }
+  </script>
+
+
+{% endblock javascripts %}

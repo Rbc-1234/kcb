@@ -1,0 +1,120 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+  
+    <!-- Dark table -->
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <tr>
+                            <td>
+                            <a href ="{% url 'brand-edit' id %}">Add-Record</a>
+                            </td>
+                            </tr>
+                        </th>
+                    </tr>
+                    <td class="budget">
+                        ID
+                      </td>
+                      <td class="budget">
+                        BRAND NAME
+                      </td>
+                  <td class="budget">
+                    LOGO
+                  </td>
+                  <td class="budget">
+                    STATUS
+                  </td>
+                  <th class="budget">
+                    EDIT
+                  </td>
+                </tr>
+                <tr>
+                  {% for k in rk %}
+                          <td class="budget">
+                            {{ forloop.counter0|add:rk.start_index }}
+                            </td>
+                        <td class="budget">
+                          {{k.brandname}}
+                        </td>
+                      </div>
+                   
+                    <td class="budget">
+                      {% if k.logo %}
+                      <a href="{%static k.logo.url%}" download><img class="img" src="{% static k.logo.url %}" width="50" height="50"></img></a>
+                    {%endif%}
+                    </td>
+                    <td class="budget">
+                      {{k.status}}
+                    </td>
+                    <td class="budget">
+                      <a href="{% url 'brand-edit' k.id %}">Edit</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-around mt-1 ">
+              <div class="col-sm-2" >
+              {% comment %} <span>
+              {% if rk.has_previous %}
+              <a href="?page={{rk.previous_page_number}}">Previous</a>
+              {% endif %}
+              <span> {{rk.number}} </span>
+              {% if rk.has_next %}
+              <a href="?page={{rk.next_page_number}}">Next</a>
+              {% endif %}
+              </span> {% endcomment %}
+              
+              {% if rk.has_other_pages %}
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  {% if rk.has_previous %}
+                    <li><a href="?page={{ rk.previous_page_number }}" class="page-link">&laquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                  {% endif %}
+                  {% for i in rk.paginator.page_range %}
+                    {% if rk.number == i %}
+                      <li class="active"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                      <li><a href="?page={{ i }}" class="page-link">{{ i }} </a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if rk.has_next %}
+                    <li><a href="?page={{ rk.next_page_number }}" class="page-link">&raquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                  {% endif %}
+                </ul>
+                </nav>
+              {% endif %}
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

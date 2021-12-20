@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+  
+    <!-- Dark table -->
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <form method="POST" action="/">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Message</label>
+      <input type="text" class="form-control" id="exampleInputPassword1" name="message">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

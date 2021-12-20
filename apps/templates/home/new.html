@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+  
+    <!-- Dark table -->
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <tr>
+                            <td>
+                            <a href ="{% url 'brand-add'%}">Add-Record</a>
+                            </td>
+                            </tr>
+                        </th>
+                    </tr>
+                   
+                      <td class="budget">
+                        Product Name
+                      </td>
+                      <td class="budget">
+                        Discriptions
+                      </td>
+                      <td class="budget">
+                        IMAGE
+                      </td>
+                      <td class="budget">
+                        Brandsize
+                      </td>
+                      <td class="budget">
+                        Brand Name
+                      </td>
+                      
+                      <td class="budget">
+                        Price
+                      </td>
+                </tr>
+                <tr>
+                  {% for k in k %}
+                  <td class="budget">
+                    {{k.name}}
+                  </td>
+                  <td class="budget">
+                    {{k.discription}}
+                  </td>
+                  <td class="budget">
+                    <a href="{% static k.document.url %}"download>{{k.document}}</a>
+                  </td>
+                  <td>
+                    {{k.brandsize.brandsize}}
+                    </td>
+                  <td class="budget">
+                    {{k.brandname.brandname}}
+                  </td>
+                    <td>
+                    {{k.price}}
+                    </td>
+                    
+                  </tr>
+                  {% endfor %}
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

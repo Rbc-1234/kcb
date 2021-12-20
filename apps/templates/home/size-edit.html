@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+            <div class="sc">
+              {% if rt.errors %}
+                  {% for field in rt %}
+                      {% for rt in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ rt|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                {% endif %}
+              
+              </div>
+          
+          <div class="card-body">
+           
+            <table class="table align-items-center table-dark table-flush">
+             
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <a href ="{% url 'brand-add' %}">Add-Record</a>
+                        </th>
+                       
+                    </tr>
+                    <form method="POST"  name="SizeForm" onsubmit="return validateForm()">
+                      {% csrf_token %}
+                    <tr>
+                    
+                    <td class="budget">
+                        <label>Fill Size</label></br>
+                        <input type="number" name="brandsize" value="{% if kc.brandsize %}{{kc.brandsize}}{% endif %}">
+                    </td>
+                    <td class="budget">
+                      <input type="submit" name="submit" value="submit">
+                    </td>
+                      </tr>
+                   </form> 
+                  </tr>
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+<script>
+  function validateForm() {
+    let x = document.forms["SizeForm"]["brandsize"].value;
+    
+    if (x == "") {
+      alert("size is blank");
+      return false;
+    }
+   
+     }
+  </script>
+
+{% endblock javascripts %}

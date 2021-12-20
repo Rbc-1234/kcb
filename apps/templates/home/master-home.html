@@ -1,0 +1,225 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+    <!-- Dark table -->
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+          </div>
+          <div class="card-header bg-transparent border-0">
+            <form method="get" >
+              <input type="text" name="searchname" id="searchname"placeholder="Search" value="{{st}}"/>
+              <select name="searchh" >
+                <option value="">select brand</option>
+                {% for k in pa %}
+                <option value="{{k.id}}" {% if k.id == rt %} selected="selected" {% endif %}>{{k.brandname}}</option>
+               {% endfor %}
+              </select>
+              <input type="submit" value="Search"/>
+            </form>
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <tr>
+                            <td>
+                            <a href ="{% url 'master-add'%}">Add-Record</a>
+                            </td>
+                            <td>
+                            </tr>
+                            <td>
+                            
+                              </td>
+                            </td>
+                            <td>
+                              <!-- <label>Brand Name</label>
+                              <select  name="brandname" id="brandname">
+                                <option value="">Select Brand Name</option>
+                                {% for gg in dd %}
+                                <option value="{{gg.id}}">{{gg.brandname}}</option>
+                                {% endfor %}
+                            </select> -->
+                              </td>
+                            </form>
+                            </tr>
+                        </th>
+                      </tr>
+                    <td class="budget">
+                        ID
+                      </td>
+                      <td class="budget">
+                        Product Name
+                      </td>
+                  <td class="budget">
+                    Discriptions
+                  </td>
+                  <td class="budget">
+                   Image
+                  </td>
+                  <td class="budget">
+                   Size
+                  </td>
+                  <td class="budget">
+                    Brand Name
+                   </td>
+                   <td class="budget">
+                    Category
+                   </td>
+                   <td class="budget">
+                    Price
+                   </td>
+                   <td class="budget">
+                    Status
+                   </td>]
+                   <td class="budget">
+                    Edit
+                   </td>
+                </tr>
+                {% for k in rk %}
+                <tr>
+                          <td class="budget">
+                            {{ forloop.counter0|add:rk.start_index }}
+                            </td>
+
+                        <td class="budget">
+                          {{k.name}}
+                        </td>
+
+                        <td class="budget">
+                            {{k.discription}}
+                          </td>
+
+                          <td class="budget">
+                            
+                            <a href="#" data-toggle="modal" data-target="#myModal_{{k.masterid}}"><img src="{% static k.document.url %}" height="20" width="20"></img></a>
+                            <div class="container">
+                              <!-- <h2>Modal Example</h2> -->
+                              <!-- Trigger the modal with a button -->
+                              <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+                            
+                              <!-- Modal -->
+                              <div class="modal fade" id="myModal_{{k.masterid}}" role="dialog">
+                                <div class="modal-dialog">
+                                
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Modal Header</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <img src="{% static k.document.url %}" height="200" width="300"></img>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td class="budget">
+                            {{k.brandsize.brandsize}}
+                          </td>
+
+                          <td class="budget">
+                            {{k.brandname.brandname}}
+                          </td>
+                          <td class="budget">
+                            {{k.brandcategory.brandcategory}}
+                          </td>
+
+                          <td class="budget">
+                            {{k.price}}
+                          </td>
+
+                          <td class="budget">
+                            {{k.masterstatus}}
+                          </td>
+                        <td class="budget">
+                          
+                          <a href="{% url 'master-edit' k.masterid %}" >Edit</a>
+                       </td>
+                       
+                  </tr>
+                  {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+            <div class="row justify-content-around mt-1 ">
+              <div class="col-sm-2" >
+              {% comment %} <span>
+              {% if rk.has_previous %}
+              <a href="?page={{rk.previous_page_number}}&searchname={{st}}&searchh={{rt}}">Previous</a>
+              {% endif %}
+              <span> {{rk.number}} </span>
+              {% if rk.has_next %}
+              <a href="?page={{rk.next_page_number}}&searchname={{st}}&searchh={{rt}}">Next</a>
+              {% endif %}
+              </span> {% endcomment %}
+              {% if rk.has_other_pages %}
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  {% if rk.has_previous %}
+                    <li><a href="?page={{ rk.previous_page_number }}&searchname={{st}}&searchh={{rt}}" class="page-link">&laquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                  {% endif %}
+                  {% for i in rk.paginator.page_range %}
+                    {% if rk.number == i %}
+                      <li class="active"><span class="page-link">{{ i }}</span></li>
+                    {% else %}
+                      <li><a href="?page={{ i }}&searchname={{st}}&searchh={{rt}}" class="page-link">{{ i }} </a></li>
+                    {% endif %}
+                  {% endfor %}
+                  {% if rk.has_next %}
+                    <li><a href="?page={{ rk.next_page_number }}&searchname={{st}}&searchh={{rt}}" class="page-link">&raquo;</a></li>
+                  {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                  {% endif %}
+                </ul>
+                </nav>
+              {% endif %}
+              </div>
+              </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+<script>
+  $(function(){
+    $("#searchname").autocomplete({
+      source:"{% url 'autosuggest' %}",
+   
+    });
+  });
+
+  </script>
+{% endblock javascripts %}
+
+ <!-- Modal Popup -->
+ 
+
+
+  <!-- Modal -->
+  
+ 
+
+<!-- fsdjklfjsdf -->

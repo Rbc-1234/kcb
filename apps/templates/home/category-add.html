@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Category Name</h3>
+            <div class="sc">
+              {% if rc.errors %}
+                  {% for field in rc %}
+                      {% for rc in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ rc|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                {% endif %}
+              
+              </div>
+          
+          <div class="card-body">
+           
+            <table class="table align-items-center table-dark table-flush">
+             
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                           
+                        </th>
+                       
+                    </tr>
+                    <form method="POST"  name="CategoryForm" onsubmit="return validateForm()">
+                      {% csrf_token %}
+                    <tr>
+                    
+                    <td class="budget">
+                        <label>Brand-Category</label></br>
+                        <input type="text" name="brandcategory">
+                    </td>
+                    <td class="budget">
+                      <input type="submit" name="submit" value="submit">
+                    </td>
+                      </tr>
+                   </form> 
+                  </tr>
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+<script>
+  function validateForm() {
+    let x = document.forms["CategoryForm"]["brandcategory"].value;
+    
+    if (x == "") {
+      alert("field is blank");
+      return false;
+    }
+   
+     }
+  </script>
+
+{% endblock javascripts %}

@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+<!-- {% load static %} -->
+  
+    <!-- Dark table -->
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <tr>
+                            <td>
+                            <a href="{% url 'size-edit' id=0 %}">Add</a>
+                            </td>
+                            </tr>
+                        </th>
+                    </tr>
+                    <td class="budget">
+                        ID
+                      </td>
+                      <td class="budget">
+                        Size Number
+                      </td>
+                  
+                </tr>
+                <tr>
+                  {% for r in kp %}
+                          <td class="budget">
+                            {{ forloop.counter }}
+                            </td>
+                        <td class="budget">
+                          {{r.brandsize}}
+                        </td>
+                      </div>
+                    <td>
+                      <a href="{% url 'size-edit' r.id %}">Edit</a>
+                      </td>
+                     
+                  </tr>
+                  {% endfor %}
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

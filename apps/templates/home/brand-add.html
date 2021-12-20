@@ -1,0 +1,103 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+{% load static %}
+    <!-- Dark table -->
+    
+    <div class="row">
+      <div class="col">
+        <div class="card bg-default shadow">
+          <div class="card-header bg-transparent border-0">
+            <h3 class="text-white mb-0">Brand Name</h3>
+            {% if nr.errors %}
+            {% for field in nr %}
+                {% for nr in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ nr|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+          {% endif %}
+          </div>
+            <table class="table align-items-center table-dark table-flush">
+              <tbody class="list">
+                <tr>
+                    <tr>
+                        <th>
+                            <a href ="{% url 'brand-add' %}">Add-Record</a>
+                        </th>
+                       
+                    </tr>
+                    <form method="POST" enctype="multipart/form-data" name="BrandForm" onsubmit="return validateForm()">
+                      {% csrf_token %}
+                    <tr>
+                      
+                    <td class="budget">
+                        <label>Brand Name</label></br>
+                        <input type="text" name="brandname" value="{% if qr.brandname %}{{qr.brandname}}{% endif %}">
+                    </td>
+                   
+                      </tr>
+                      <tr>
+                        <td class="budget">
+                            <label>LOGO</label></br>
+                            {% if qr.logo %}
+                           <img src="{% static qr.logo.url %}" height="20" width="20"></img></br>
+                           {% endif %}
+                            <input type="file" name="logo" multiple value="{% if qr.logo %}{{qr.logo}}{% endif %}">
+                        </td>
+                          </tr>
+                          <tr>
+                            <td class="budget">
+                                <label>STATUS</label></br>
+                                
+                                <input type="radio" value="active" name="status"  checked/>Active
+                                
+                                <input type="radio" value="inactive" name="status" />In Active
+                            </td>
+                              </tr>
+                              <tr>
+                                <td class="budget">
+                                    <input type="submit" name="submit" value="submit">
+                     </td>
+                   </tr> 
+                   </form> 
+                  </tr>
+                </tr>
+                <tr>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+<script>
+  function validateForm() {
+    let x = document.forms["BrandForm"]["brandname"].value;
+    let y= document.forms["BrandForm"]["logo"].value;
+    if (x == "") {
+      alert("Name must be filled out");
+      return false;
+    }
+    // if (y == "") {
+    //   alert("document is required");
+    //   return false;
+    // }
+  }
+  </script>
+
+
+{% endblock javascripts %}
