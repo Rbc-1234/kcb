@@ -6,6 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 from decouple import config
 from unipath import Path
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent
@@ -19,6 +20,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', config('SERVER', default='127.0.0.1')]
+ALLOWED_HOSTS = ['new-pr.herokuapp.com', '127.0.0.1']
 
 # Application definition
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
@@ -143,3 +145,5 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abhishekrai20587@gmail.com'
 EMAIL_HOST_PASSWORD = 'Rai@20587'
+
+django_heroku.settings(locals())
